@@ -23,7 +23,7 @@
             </label>
             <div id="card" class="collapse">
               <label for="cardnumber">Card Number *</label>
-              <input type="text" class="form-control" id="cardnumber" name="cardnumber" maxlength="16" placeholder="Card number" pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$"
+              <input type="text" class="form-control" id="cardnumber" name="cardnumber" maxlength="16" placeholder="Card number" pattern="((?:(?:4\d{3})|(?:5[1-5]\d{2})|6(?:011|5[0-9]{2}))(?:-?|\040?)(?:\d{4}(?:-?|\040?)){3}|(?:3[4,7]\d{2})(?:-?|\040?)\d{6}(?:-?|\040?)\d{5})"
                 aria-describedby="cardnumber_desc" aria-required="true" [(ngModel)]="payment.cardnumber" #cardnumber="ngModel"
                 required>
               <span id="cardnumber_desc" class="hidden" aria-live="assertive">example format required: 1234-5678-9123-4567</span>
@@ -39,7 +39,7 @@
                 <div class="col-sm-3">
 
                   <label for="expiry">Exp *</label>
-                  <input type="text" class="form-control" id="expiry" name="expiry" maxlength="5" placeholder="MM / YY" pattern="^((0[1-9])|(1[0-2]))[\/\.\-]*((1[8-9])|([2][0-9]))$"
+                  <input type="text" class="form-control" id="expiry" name="expiry" maxlength="5" (keyup)="expInsert(payment, expiry.value)" placeholder="MM / YY" pattern="^((0[1-9])|(1[0-2]))[\/\.\-]*((1[8-9])|([2][0-9]))$"
                     aria-required="true" [(ngModel)]="payment.expiry" #expiry="ngModel" required>
 
                 </div>

@@ -97,12 +97,23 @@ export class PaymentComponent implements OnInit {
     this.global.billing.save = this.billing.save;
     //
     newForm.reset();
-    //
+    // causes error
     this.billing = null;
   }
 
   getFocus(eleId: string): void {
     document.getElementById(eleId).focus();
+  }
+
+  sayHello(): void {
+    console.log('hello!');
+  }
+
+  expInsert(model: Payment, string: string): void {
+    if (string.length == 2) {
+      model.expiry = model.expiry + '/';
+    }
+    
   }
 
   onKey(this: any, event: any): void {
