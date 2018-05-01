@@ -1,0 +1,230 @@
+<div id="content">
+  <main>
+
+    <form #newForm="ngForm" (ngSubmit)="onSubmit(newForm)" novalidate>
+
+      <!-- Tab panels -->
+      <div class="tab-content card">
+        <!--Panel 1-->
+        <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+          <h1>Personal Detail</h1>
+          <div class="card card-block">
+            <fieldset class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" minlength="3" maxlength="30" placeholder="Please enter the first name"
+                aria-required="true" [(ngModel)]="record.firstName" #firstName="ngModel" required>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" minlength="3" maxlength="30" placeholder="Please enter the last name"
+                aria-required="true" [(ngModel)]="record.lastName" #lastName="ngModel" required>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="emailAddress">Email Address *</label>
+              <input type="email" class="form-control" id="emailAddress" placeholder="Please enter an email address" name="emailAddress"
+                role="email" aria-describedby="emailAddress_desc" aria-required="true" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                [(ngModel)]="record.emailAddress" #emailAddress="ngModel" required>
+              <span id="emailAddress_desc" class="hidden" aria-live="assertive">Please enter a contact email address (eg. contact@domain.com)</span>
+            </fieldset>
+
+            <fieldset>
+              <label for="landline">Landline Number *</label>
+              <input type="tel" class="form-control" id="landline" placeholder="Please enter a contact UK landline telephone number" name="landline"
+                pattern="^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$"
+                role="tel" aria-describedby="landline_desc" aria-required="true" [(ngModel)]="record.landline" #landline="ngModel"
+                required>
+              <span id="landline_desc" class="hidden" aria-live="assertive">example format required: xxx xxxx xxxx, xxxx xxx xxxx, xxxxx xxxxxx</span>
+            </fieldset>
+
+            <fieldset>
+              <label for="mobile">Mobile Number *</label>
+              <input type="tel" class="form-control" id="mobile" placeholder="Please enter a contact mobile telephone number" name="mobile"
+                pattern="^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$"
+                role="tel" aria-describedby="mobile_desc" aria-required="true" [(ngModel)]="record.mobile" #mobile="ngModel"
+                required>
+              <span id="mobile_desc" class="hidden" aria-live="assertive">example format required: xxx xxxx xxxx, xxxx xxx xxxx, xxxxx xxxxxx</span>
+            </fieldset>
+
+            <div *ngIf="!newForm.form.pristine && !newForm.form.valid">
+              <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+                <div id="errMsg_fnReq" [hidden]="!firstName.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('firstName')">The contact first name is required!</a>
+                </div>
+                <div id="errMsg_fnMinLgt" [hidden]="!firstName.errors.minlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('firstName')">The contact first name must be at least 3 characters long.</a>
+                </div>
+                <div id="errMsg_fnMaxLgt" [hidden]="!firstName.errors.maxlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('firstName')">The contact first name cannot be more than 30 characters long.</a>
+                </div>
+              </div>
+              <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+                <div id="errMsg_lnReq" [hidden]="!lastName.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('lastName')">The contact last name is required!</a>
+                </div>
+                <div id="errMsg_lnMinLgt" [hidden]="!lastName.errors.minlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('lastName')">The contact last name must be at least 3 characters long.</a>
+                </div>
+                <div id="errMsg_lnMinLgt" [hidden]="!lastName.errors.maxlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('lastName')">The contact last name cannot be more than 30 characters long.</a>
+                </div>
+              </div>
+              <div *ngIf="emailAddress.errors && (emailAddress.dirty || emailAddress.touched)">
+                <div id="errMsg_emReq" [hidden]="!emailAddress.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('emailAddress')">The contact email address is required!</a>
+                </div>
+                <div id="errMsg_emInv" [hidden]="!emailAddress.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('emailAddress')">The contact email address is invalid!</a>
+                </div>
+              </div>
+              <div *ngIf="landline.errors && (landline.dirty || landline.touched)">
+                <div id="errMsg_tlReq" [hidden]="!landline.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('landline')">The contact UK landline telephone number is required!</a>
+                </div>
+                <div id="errMsg_tlInv" [hidden]="!landline.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('landline')">The contact landline telephone number is invalid!</a>
+                </div>
+              </div>
+              <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
+                <div id="errMsg_mbReq" [hidden]="!mobile.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('mobile')">The contact mobile telephone number is required!</a>
+                </div>
+                <div id="errMsg_mbInv" [hidden]="!mobile.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('mobile')">The contact mobile telephone number is invalid!</a>
+                </div>
+              </div>
+            </div>
+            <a id="linkContactAddress" class="nav-link" data-toggle="tab" href="#panel2" (click)="onChangeTab('contactAddress')">Contact address</a>
+          </div>
+        </div>
+        <!--/.Panel 1-->
+        <!--Panel 2-->
+        <div class="tab-pane fade" id="panel2" role="tabpanel">
+          <h1>Address Detail</h1>
+          <div class="card card-block">
+            <fieldset class="form-group">
+              <label for="addrLine1">Address Line 1 *</label>
+              <input type="text" class="form-control" id="addrLine1" name="addrLine1" placeholder="Please enter the first line of the contact main address"
+                aria-required="true" [(ngModel)]="address.addrLine1" #addrLine1="ngModel" required>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="addrLine2">Address Line 2 *</label>
+              <input type="text" class="form-control" id="addrLine2" name="addrLine2" placeholder="Please enter the second line of the contact main address"
+                aria-required="true" [(ngModel)]="address.addrLine2" #addrLine2="ngModel" required>
+            </fieldset>
+
+            <fieldset>
+              <label for="addrLine3">Address Line 3</label>
+              <input type="text" class="form-control" id="addrLine3" name="addrLine3" placeholder="Please enter the third line of the contact main address"
+                [(ngModel)]="address.addrLine3" #addrLine3="ngModel">
+            </fieldset>
+
+            <fieldset>
+              <label for="city">Town / City *</label>
+              <input type="text" class="form-control" id="city" name="city" placeholder="Please enter the town or city of the contact main address"
+                aria-required="true" [(ngModel)]="address.city" #city="ngModel" required>
+            </fieldset>
+
+            <fieldset>
+              <label for="county">County *</label>
+              <input type="text" class="form-control" id="county" placeholder="Please enter the county of the contact main address" name="county"
+                aria-required="true" [(ngModel)]="address.county" #county="ngModel" required>
+            </fieldset>
+
+            <fieldset>
+              <label for="postcode">Post Code *</label>
+              <input type="text" class="form-control" id="postcode" name="postcode" maxlength="8" placeholder="Please enter the postcode of the contact main address"
+                pattern="^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$"
+                aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="address.postcode" #postcode="ngModel" required>
+              <span id="postcode_desc" class="hidden" aria-live="assertive">example format required: xxx xxx, xxxx xxx</span>
+            </fieldset>
+
+            <div *ngIf="!newForm.form.pristine && !newForm.form.valid">
+              <div *ngIf="addrLine1.errors && (addrLine1.dirty || addrLine1.touched)">
+                <div id="errMsg_a1Req" [hidden]="!addrLine1.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('addrLine1')">The first line of the contact main address is required!</a>
+                </div>
+              </div>
+              <div *ngIf="addrLine2.errors && (addrLine2.dirty || addrLine2.touched)">
+                <div id="errMsg_a2Req" [hidden]="!addrLine2.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('addrLine2')">The second line of the contact main address is required!</a>
+                </div>
+              </div>
+              <div *ngIf="city.errors && (city.dirty || city.touched)">
+                <div id="errMsg_ctReq" [hidden]="!city.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('city')">The town or city of the contact main address is required!</a>
+                </div>
+              </div>
+              <div *ngIf="county.errors && (county.dirty || county.touched)">
+                <div id="errMsg_cyReq" [hidden]="!county.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('county')">The county of the contact main address is required!</a>
+                </div>
+              </div>
+              <div *ngIf="postcode.errors && (postcode.dirty || postcode.touched)">
+                <div id="errMsg_pcReq" [hidden]="!postcode.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('postcode')">The postcode of the contact main address is required!</a>
+                </div>
+                <div id="errMsg_pcInv" [hidden]="!postcode.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('postcode')">The postcode of the contact main address is invalid!</a>
+                </div>
+              </div>
+            </div>
+            <a id="linkContactProfile" class="nav-link" data-toggle="tab" href="#panel3" (click)="onChangeTab('contactProfile')">Contact Profile</a>
+          </div>
+        </div>
+        <!--/.Panel 2-->
+        <!--Panel 3-->
+        <div class="tab-pane fade" id="panel3" role="tabpanel">
+          <h1>Contact Profile</h1>
+          <div class="card card-block">
+            <fieldset class="form-group">
+              <legend>In which sector do you work?</legend>
+              <input type="radio" id="private" name="sector" value="private" aria-label="The Private Sector">
+              <label for="private">Private</label>
+              <br />
+              <input type="radio" id="public" name="sector" value="public" aria-label="The Public Sector">
+              <label for="public">Public</label>
+              <br />
+              <input type="radio" id="voluntary" name="sector" value="voluntary" aria-label="The Voluntary Sector">
+              <label for="voluntary">Voluntary</label>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label for="date">When did you start at the company?</label>
+              <input id="date" type="date" role="date">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="startTime">What time did you arrive at work this morning?</label>
+              <input type="time" id="startTime" role="time">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="website">Company Web site</label>
+              <input type="url" class="form-control" id="website" placeholder="Please enter the contact company Web site" name="website"
+                pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)" role="url"
+                aria-describedby="url_desc" aria-required="true" [(ngModel)]="record.website" #website="ngModel" required>
+              <span id="url_desc" class="hidden" aria-live="assertive">example format required: http://www.domain.com</span>
+            </fieldset>
+
+            <div *ngIf="!newForm.form.pristine && !newForm.form.valid">
+              <div *ngIf="website.errors && (website.dirty || website.touched)">
+                <div id="errMsg_wsReq" [hidden]="!website.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('website')">The contact Web site address is required!</a>
+                </div>
+                <div id="errMsg_wsInv" [hidden]="!website.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                  <a (click)="getFocus('website')">The contact web site address is not a valid format!</a>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" aria-disabled="!newForm.form.valid" [disabled]="!newForm.form.valid">Submit</button>
+
+          </div>
+        </div>
+        <!--/.Panel 3-->
+      </div>
+
+    </form>
+  </main>
+</div>

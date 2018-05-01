@@ -1,0 +1,134 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="bg-primary">
+    <h1 class="display-1 small text-white">Accessibility Checkout Demo</h1>
+    <h2 class="display-2 small text-white">ATOS DEUX</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div>
+        <span>
+          basket > contact >
+          <strong>shipment</strong> > payment
+        </span>
+      </div>
+      <form #newForm="ngForm" (ngSubmit)="onSubmit(newForm)" novalidate>
+        <div>
+          <h1>Shipping Address</h1>
+          <div class="row">
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" minlength="3" maxlength="30" placeholder="Please enter the first name"
+                  aria-required="true" [(ngModel)]="shipping.firstName" #firstName="ngModel" required>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" minlength="3" maxlength="30" placeholder="Please enter the last name"
+                  aria-required="true" [(ngModel)]="shipping.lastName" #lastName="ngModel" required>
+              </fieldset>
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <label for="addrLine1">Address Line 1 *</label>
+            <input type="text" class="form-control" id="addrLine1" name="addrLine1" placeholder="Please enter the first line of the contact main address"
+              autocorrect="off" autocapitalize="off" spellcheck="off" aria-required="true" [(ngModel)]="shipping.addrLine1"
+              #addrLine1 [formControl]="searchControl" required>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label for="addrLine2">Address Line 2 *</label>
+            <input type="text" class="form-control" id="addrLine2" name="addrLine2" placeholder="Please enter the second line of the contact main address"
+              [(ngModel)]="shipping.addrLine2" #addrLine2="ngModel">
+          </fieldset>
+          <div class="row">
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label for="city">Town / City *</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Please enter the town or city of the contact main address"
+                  aria-required="true" [(ngModel)]="shipping.city" #city="ngModel" required>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label for="postcode">Post Code *</label>
+                <input type="text" class="form-control" id="postcode" name="postcode" maxlength="8" placeholder="Please enter the postcode of the contact main address"
+                  pattern="^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$"
+                  aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="shipping.postcode" #postcode="ngModel"
+                  required>
+                <span id="postcode_desc" class="hidden" aria-live="assertive">example format required: xxx xxx, xxxx xxx</span>
+              </fieldset>
+            </div>
+          </div>
+          <input type="checkbox" id="saveAddressInfo" name="saveAddressInfo" value="" [(ngModel)]="shipping.save" #saveAddressInfo="ngModel">
+          <label for="saveAddressInfo">Save this information for next time</label>
+
+          <button type="submit" class="btn btn-success">Submit</button>
+
+          <div *ngIf="!newForm.form.pristine && !newForm.form.valid">
+            <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+              <div id="errMsg_fnReq" [hidden]="!firstName.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('firstName')">The contact first name is required!</a>
+              </div>
+              <div id="errMsg_fnMinLgt" [hidden]="!firstName.errors.minlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('firstName')">The contact first name must be at least 3 characters long.</a>
+              </div>
+              <div id="errMsg_fnMaxLgt" [hidden]="!firstName.errors.maxlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('firstName')">The contact first name cannot be more than 30 characters long.</a>
+              </div>
+            </div>
+            <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+              <div id="errMsg_lnReq" [hidden]="!lastName.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('lastName')">The contact last name is required!</a>
+              </div>
+              <div id="errMsg_lnMinLgt" [hidden]="!lastName.errors.minlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('lastName')">The contact last name must be at least 3 characters long.</a>
+              </div>
+              <div id="errMsg_lnMinLgt" [hidden]="!lastName.errors.maxlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('lastName')">The contact last name cannot be more than 30 characters long.</a>
+              </div>
+            </div>
+            <div *ngIf="addrLine1.errors && (addrLine1.dirty || addrLine1.touched)">
+              <div id="errMsg_a1Req" [hidden]="!addrLine1.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('addrLine1')">The first line of the contact main address is required!</a>
+              </div>
+            </div>
+            <div *ngIf="city.errors && (city.dirty || city.touched)">
+              <div id="errMsg_ctReq" [hidden]="!city.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('city')">The town or city of the contact main address is required!</a>
+              </div>
+            </div>
+            <div *ngIf="postcode.errors && (postcode.dirty || postcode.touched)">
+              <div id="errMsg_pcReq" [hidden]="!postcode.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('postcode')">The postcode of the contact main address is required!</a>
+              </div>
+              <div id="errMsg_pcInv" [hidden]="!postcode.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('postcode')">The postcode of the contact main address is invalid!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <a routerLink="/payment" routerLinkActive="active">Payment</a>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <div *ngIf="global.basketCost">
+        <h1>Basket</h1>
+        <ul>
+          <li *ngFor="let item of global.basket">
+            <span>{{ item.productName }} - £{{ item.quantityCost }}</span>
+          </li>
+        </ul>
+        <p>
+          Basket Cost: £{{ global.basketCost }}
+          <br /> Shipping Cost: £{{ global.shippingCost }}
+          <br /> Total Cost: £{{ global.basketCost+global.shippingCost }}
+          <br />
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>

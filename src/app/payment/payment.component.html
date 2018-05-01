@@ -1,0 +1,167 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="bg-primary">
+    <h1 class="display-1 small text-white">Accessibility Checkout Demo</h1>
+    <h2 class="display-2 small text-white">ATOS DEUX</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div>
+        <span>
+          basket > contact > shipment >
+          <strong>payment</strong>
+        </span>
+      </div>
+      <form #newForm="ngForm" (ngSubmit)="onSubmit(newForm)" novalidate>
+        <div>
+          <fieldset>
+            <legend>Payment Method</legend>
+            <label class="box" data-toggle="collapse" data-target="#card">Credit Card</label>
+            <div id="card" class="collapse">
+              <label for="cardnumber">Card Number *</label>
+              <input type="text" class="form-control" id="cardnumber" name="cardnumber" maxlength="16" placeholder="Card number" pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$"
+                aria-describedby="cardnumber_desc" aria-required="true" [(ngModel)]="payment.cardnumber" #cardnumber="ngModel"
+                required>
+              <span id="cardnumber_desc" class="hidden" aria-live="assertive">example format required: 1234-5678-9123-4567</span>
+
+              <div class="row">
+                <div class="col-sm-6">
+
+                  <label for="cardholdername">Cardholder Name *</label>
+                  <input type="text" class="form-control" id="cardholdername" name="cardholdername" minlength="3" maxlength="30" placeholder="Cardholder name"
+                    aria-required="true" [(ngModel)]="payment.name" #cardholdername="ngModel" required>
+
+                </div>
+                <div class="col-sm-3">
+
+                  <label for="expiry">Exp *</label>
+                  <input type="text" class="form-control" id="expiry" name="expiry" maxlength="5" placeholder="MM / YY" pattern="^((0[1-9])|(1[0-2]))[\/\.\-]*((1[8-9])|([2][0-9]))$"
+                    aria-required="true" [(ngModel)]="payment.expiry" #expiry="ngModel" required>
+
+                </div>
+                <div class="col-sm-3">
+
+                  <label for="expiry">CVV *</label>
+                  <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" maxlength="4" pattern="^[0-9]{3,4}$" aria-required="true"
+                    [(ngModel)]="payment.cvv" #cvv="ngModel" required>
+                </div>
+              </div>
+            </div>
+            <!-- // card payment -->
+            <label class="box" data-toggle="collapse" data-target="#paypal">PayPal</label>
+            <div id="paypal" class="collapse">
+              <h3>PayPal here!</h3>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Billing Address</legend>
+            <label class="box" data-toggle="collapse" data-target="#shippingaddress">Shipping Address</label>
+            <div id="shippingaddress" class="collapse">
+              <h3>same as shipping address</h3>
+            </div>
+            <label class="box" data-toggle="collapse" data-target="#billingaddress">Billing Address</label>
+            <div id="billingaddress" class="collapse">
+
+              <label for="addrLine1">Address Line 1 *</label>
+              <input type="text" class="form-control" id="addrLine1" name="addrLine1" placeholder="Please enter the first line of the contact main address"
+                autocorrect="off" autocapitalize="off" spellcheck="off" aria-required="true" [(ngModel)]="billing.addrLine1"
+                #addrLine1 [formControl]="searchControl" required>
+
+              <label for="addrLine2">Address Line 2 *</label>
+              <input type="text" class="form-control" id="addrLine2" name="addrLine2" placeholder="Please enter the second line of the contact main address"
+                [(ngModel)]="billing.addrLine2" #addrLine2="ngModel">
+
+              <div class="row">
+                <div class="col-sm-6">
+
+                  <label for="city">Town / City *</label>
+                  <input type="text" class="form-control" id="city" name="city" placeholder="Please enter the town or city of the contact main address"
+                    aria-required="true" [(ngModel)]="billing.city" #city="ngModel" required>
+
+                </div>
+                <div class="col-sm-6">
+
+                  <label for="postcode">Post Code *</label>
+                  <input type="text" class="form-control" id="postcode" name="postcode" maxlength="8" placeholder="Please enter the postcode of the contact main address"
+                    pattern="^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$"
+                    aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="billing.postcode" #postcode="ngModel"
+                    required>
+                  <span id="postcode_desc" class="hidden" aria-live="assertive">example format required: xxx xxx, xxxx xxx</span>
+
+                </div>
+              </div>
+              <input type="checkbox" id="saveAddressInfo" name="saveAddressInfo" value="" [(ngModel)]="billing.save" #saveAddressInfo="ngModel">
+              <label for="saveAddressInfo">Save this information for next time</label>
+
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+
+          </fieldset>
+
+          <div *ngIf="!newForm.form.pristine && !newForm.form.valid">
+
+            <div *ngIf="cardnumber.errors && (cardnumber.dirty || cardnumber.touched)">
+              <div id="errMsg_cnReq" [hidden]="!cardnumber.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cardnumber')">The bank card number is required!</a>
+              </div>
+              <div id="errMsg_cnInv" [hidden]="!cardnumber.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cardnumber')">The bank card number is invalid!</a>
+              </div>
+            </div>
+
+            <div *ngIf="cardholdername.errors && (cardholdername.dirty || cardholdername.touched)">
+              <div id="errMsg_rnReq" [hidden]="!cardholdername.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cardholdername')">The registered cardholder name is required!</a>
+              </div>
+              <div id="errMsg_rnMinLgt" [hidden]="!cardholdername.errors.minlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cardholdername')">The registered cardholder name must be at least 3 characters long.</a>
+              </div>
+              <div id="errMsg_rnMinLgt" [hidden]="!cardholdername.errors.maxlength" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cardholdername')">The registered cardholder name cannot be more than 30 characters long.</a>
+              </div>
+            </div>
+
+            <div *ngIf="expiry.errors && (expiry.dirty || expiry.touched)">
+              <div id="errMsg_expReq" [hidden]="!expiry.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('expiry')">The bank card expiry date is required!</a>
+              </div>
+              <div id="errMsg_expInv" [hidden]="!expiry.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('expiry')">The bank card expiry date is invalid!</a>
+              </div>
+            </div>
+
+            <div *ngIf="cvv.errors && (cvv.dirty || cvv.touched)">
+              <div id="errMsg_cvvReq" [hidden]="!cvv.errors.required" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cvv')">The bank card expiry cvv number is required!</a>
+              </div>
+              <div id="errMsg_cvvInv" [hidden]="!cvv.errors.pattern" role="alert" tabindex="0" (keyup)="onKey($event)" class="alert alert-danger">
+                <a (click)="getFocus('cvv')">The bank card expiry cvv number is invalid!</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+      <a routerLink="/confirmation" routerLinkActive="active">Confirmation</a>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <div *ngIf="global.basketCost">
+        <h1>Basket</h1>
+        <ul>
+          <li *ngFor="let item of global.basket">
+            <span>{{ item.productName }} - £{{ item.quantityCost }}</span>
+          </li>
+        </ul>
+        <p>
+          Basket Cost: £{{ global.basketCost }}
+          <br /> Shipping Cost: £{{ global.shippingCost }}
+          <br /> Total Cost: £{{ global.basketCost+global.shippingCost }}
+          <br />
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div>

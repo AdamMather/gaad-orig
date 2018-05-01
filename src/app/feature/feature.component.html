@@ -1,0 +1,262 @@
+<main id="content">
+  <span class="box" data-toggle="collapse" data-target="#collapseDiv"></span>
+  <div id="collapseDiv" class="collapse">this is a collapsable div</div>
+  <h1>Lorry</h1>
+  <fieldset>
+    <label for="cboLorryOption">Lorry:</label>
+    <select id="cboLorryOption" aria-label="this is the text description for lorry list">
+      <option>Lorry 1</option>
+      <option>Lorry 2</option>
+      <option>Lorry 3</option>
+    </select>
+  </fieldset>
+  <h1>Car</h1>
+  <fieldset>
+    <label for="cboCarOption">Car:</label>
+    <select id="cboCarOption" aria-label="this is the text description for car list">
+      <option>Car 1</option>
+      <option>Car 2</option>
+      <option>Car 3</option>
+    </select> 
+  </fieldset>
+
+
+  <h1>Feature</h1>
+  <p>This page is intended to serve as a demonstration of HTML elements that are compliant with WCAG 2.0 standards. and the
+    AT testing capability (JAWS, ZOOMText and Dragon NaturallySpeaking)</p>
+
+  <fieldset>
+    <span id="waist_desc" class="hidden">Please select the waist size:</span>
+    <label for="group-options">Waist Size:</label>
+    <select id="Id" #Id="ngModel" class="hideLabel form-control" (change)="onChangeAttribute(waist.value)" aria-describedby="waist_desc"
+      [(ngModel)]="waistValue" [ngModelOptions]="{standalone: true}" #waist>
+      <option [ngValue]="value" *ngFor="let value of waistData">
+        {{ value }}
+      </option>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <span id="length_desc" class="hidden">Please select the jean length:</span>
+    <label for="group-options">Length:</label>
+    <select id="Id" #Id="ngModel" class="hideLabel form-control" (change)="onChangeAttribute(length.value)" aria-describedby="length_desc"
+      [(ngModel)]="lengthValue" [ngModelOptions]="{standalone: true}" #length>
+      <option [ngValue]="value" *ngFor="let value of lengthData">
+        {{ value }}
+      </option>
+    </select>
+  </fieldset>
+
+  <h2>Navigation bar with working dropdowns accessible with a keyboard</h2>
+
+  <ul role="menubar" aria-label="functions" id="appmenu">
+    <li id="menu1" role="menuitem" aria-haspopup="true" data-toggle="collapse" data-target="#collapseMenu1" aria-expanded="false"
+      aria-controls="collapseMenu1" aria-label="Toggle menu 1">
+      <button class="dropdown-toggle dropdown-border">Menu 1</button>
+      <ul role="menu" class="collapse" id="collapseMenu1">
+        <li role="menuitem">Link 1</li>
+        <li role="menuitem">Link 2</li>
+        <li role="menuitem">Link...</li>
+      </ul>
+    </li>
+    <li id="menu2" role="menuitem" aria-haspopup="true" data-toggle="collapse" data-target="#collapseMenu2" aria-expanded="false"
+      aria-controls="collapseMenu2">
+      <button class="dropdown-toggle">Menu 2</button>
+      <ul role="menu" class="collapse" id="collapseMenu2">
+        <li role="menuitem">Link 1</li>
+        <li role="menuitem">Link 2</li>
+        <li role="menuitem">Link...</li>
+      </ul>
+      <li role="menuitem">Help</li>
+  </ul>
+
+  <h2>Form where by all elements can be checked and unchecked</h2>
+  <fieldset>
+    <legend>Please choose the make(s) of car you would like:</legend>
+    <ul role="listbox" aria-label="vehicle makes">
+      <li role="option" aria-checked="mixed">
+        <input type="checkbox" id="vehicleAll" name="all" (change)="checkAll()" />
+        <label for="vehicleAll">Select All</label>
+      </li>
+      <li role="option" aria-checked="mixed" *ngFor="let vehicle of vehicles; let i = index">
+        <input type="checkbox" id="{{vehicle.make}}" name="vehicles[]" value="{{vehicle.id}}" (change)="selVehicle()" [checked]="isSelected">
+        <label for="{{vehicle.make}}">{{ vehicle.make }}</label>
+      </li>
+    </ul>
+  </fieldset>
+
+
+  <h2>Canvas</h2>
+  <canvas id="goodCanvas1" width="400" height="100" aria-label="Canvas image of three primary shapes" role="canvas">
+    <p>Presented to the screen is a lilac rectangle. Above and to the left is a gold circle, which is partially behind the rectangle.
+      In the foregound from the centre of the circle forms an equilateral trangle with its apex towards the left of the canvas
+      area. one half of the triangle overlays the rectangle. All shapes have a black border.</p>
+  </canvas>
+
+  <hr />
+
+  <label for="bird-selector">Please choose aspecies of bird from the list:</label>
+  <select size="1" id="bird-selector" aria-controls="bird-info">
+    <option>Black Redstart</option>
+    <option>Greenshank</option>
+    <option>Meadow Pipit</option>
+    <option>Sandwich Tern</option>
+  </select>
+  <hr />
+  <h2>Button</h2>
+  <input id="button" type="button" value="Click Me">
+  <br />
+  <br />
+  <h2>Datalist</h2>
+  <br />
+  <label id="lblBrowsers" for="myBrowser">Please choose a browser from this list:</label>
+  <input list="browsers" id="myBrowser" name="myBrowser" role="list" aria-describedby="lblBrowsers" />
+  <datalist id="browsers">
+    <option value="Chrome">
+      <option value="Firefox">
+        <option value="Internet Explorer">
+          <option value="Opera">
+            <option value="Safari">
+              <option value="Microsoft Edge">
+  </datalist>
+  <br />
+  <br />
+  <h2>Fieldset</h2>
+  <form #newForm="ngForm" (ngSubmit)="onSubmit(newForm)" novalidate>
+    <fieldset>
+      <legend>The play
+        <cite>Hamlet</cite> was written by:</legend>
+      <input type="radio" id="shakesp" name="hamlet" checked="checked" value="a">
+      <label for="shakesp">William Shakespeare</label>
+      <br />
+      <input type="radio" id="kipling" name="hamlet" value="b">
+      <label for="kipling">Rudyard Kipling</label>
+      <br />
+      <input type="radio" id="gbshaw" name="hamlet" value="c">
+      <label for="gbshaw">George Bernard Shaw</label>
+      <br />
+      <input type="radio" id="hem" name="hamlet" value="d">
+      <label for="hem">Ernest Hemingway</label>
+      <br />
+      <input type="radio" id="dickens" name="hamlet" value="e">
+      <label for="dickens">Charles Dickens</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Please select every sport you play:</legend>
+      <input type="checkbox" id="cricket" name="sports" value="cricket">
+      <label for="cricket">Cricket</label>
+      <br />
+      <input type="checkbox" id="football" name="sports" value="football">
+      <label for="football">Football</label>
+      <br />
+      <input type="checkbox" id="baseball" name="sports" value="baseball">
+      <label for="baseball">Baseball</label>
+      <br />
+      <input type="checkbox" id="tennis" name="sports" checked="checked" value="tennis">
+      <label for="tennis">Tennis</label>
+      <br />
+      <input type="checkbox" id="basketball" name="sports" value="basketball">
+      <label for="basketball">Basketball</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Please select a group option:</legend>
+      <label for="group-options">group option:</label>
+      <select id="group-options" aria-controls="group-options">
+        <optgroup label="Group 1">
+          <option>Option 1.1</option>
+        </optgroup>
+        <optgroup label="Group 2">
+          <option>Option 2.1</option>
+          <option>Option 2.2</option>
+        </optgroup>
+        <optgroup label="Group 3" disabled>
+          <option>Option 3.1</option>
+          <option>Option 3.2</option>
+          <option>Option 3.3</option>
+        </optgroup>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <label for="range">Range</label>
+      <input id="range" type="range" max="10" min="0" step="2">
+    </fieldset>
+    <fieldset>
+      <label for="colour">Colour</label>
+      <input id="colour" type="color" value="#ff0000">
+    </fieldset>
+    <fieldset>
+      <label for="date">Date</label>
+      <input id="date" type="date">
+    </fieldset>
+    <fieldset>
+      <label for="datetime">Date & Time</label>
+      <input id="datetime" type="datetime-local">
+    </fieldset>
+    <fieldset>
+      <label for="email">Email</label>
+      <input type="email" placeholder="email@domain.com" list="defaultEmails">
+
+      <datalist id="defaultEmails" aria-describedby="email_desc">
+        <option value="jbond007@mi6.defence.gov.uk">
+          <option value="jbourne@unknown.net">
+            <option value="nfury@shield.org">
+              <option value="tony@starkindustries.com">
+                <option value="hulk@grrrrrrrr.arg">
+      </datalist>
+      <span id="email_desc" class="hidden" aria-live="assertive">Please use listbox selection if appropriate</span>
+    </fieldset>
+    <fieldset>
+      <label for="myFile">File</label>
+      <input id="myFile" name="myFile" type="file">
+    </fieldset>
+    <fieldset>
+      <label for="image">Image</label>
+      <input id="image" type="image" alt="Login" src="https://raw.githubusercontent.com/mdn/learning-area/master/html/forms/image-type-example/login.png">
+    </fieldset>
+    <fieldset>
+      <label for="month">Month</label>
+      <input id="month" type="month">
+    </fieldset>
+    <fieldset>
+      <label for="number">Number</label>
+      <input id="number" type="number" value="42">
+    </fieldset>
+    <fieldset>
+      <label for="userPassword">Password</label>
+      <input id="userPassword" type="password">
+    </fieldset>
+    <fieldset>
+      <label for="pin">PIN</label>
+      <input id="pin" type="password" id="pin" type="password" inputmode="numeric" minlength="4" maxlength="8" size="8">
+    </fieldset>
+    <fieldset>
+      <input type="search" id="mySearch" name="q" placeholder="Search the site...">
+      <button>Search</button>
+    </fieldset>
+    <fieldset>
+      <label for="telNo">Enter a telephone number (in the form xxx-xxx-xxxx): </label>
+      <input id="telNo" name="telNo" type="tel" placeholder="123-4567-8901" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+    </fieldset>
+    <fieldset>
+      <label for="startTime">Start time: </label>
+      <input type="time" id="startTime">
+    </fieldset>
+    <fieldset>
+      <label for="url">url: </label>
+      <input type="url" id="url">
+    </fieldset>
+    <fieldset>
+      <label for="week">Week: </label>
+      <input type="week" id="week">
+    </fieldset>
+  </form>
+  <h2>Meter</h2>
+  <p>Heat the oven to
+    <meter low="250" high="450" min="200" max="500" value="350">350 degrees</meter>.</p>
+  <h2>Progress</h2>
+  <progress value="70" max="100">70 %</progress>
+
+</main>
