@@ -125,7 +125,7 @@ export class BasketComponent implements OnInit {
     let stringBuilder: string = '';
     let numOfItems: string = 'you currently have #num items in the shopping basket';
     let basketCost: string = 'at a total basket cost of ' + this.global.basketCost + ' pounds';
-    let totalCost: string = 'the shipping cost is ' + this.shippingCost + ' pounds, bringing the total cost to ' + this.global.basketCost + this.shippingCost + ' pounds';
+    let totalCost: string = 'the shipping cost is ' + this.global.shippingCost + ' pounds, bringing the total cost to ' + this.global.basketCost + this.global.shippingCost + ' pounds';
 
     if (this.global.basket.length == 0) {
       stringBuilder = 'the basket is empty';
@@ -177,6 +177,16 @@ export class BasketComponent implements OnInit {
       console.log('you pressed key combination Alt+N');
       element.innerHTML = this.getNumberOfProductListings();
       element.focus();
+    }
+
+    if (event.keyCode == 67 && event.altKey) {
+      console.log('you pressed key combination Alt+C');
+      this.router.navigate(['/checkout'], { relativeTo: this.route });
+    }
+
+    if (event.keyCode == 83 && event.altKey) {
+      console.log('you pressed key combination Alt+B');
+      this.router.navigate(['/shop'], { relativeTo: this.route });
     }
 
 

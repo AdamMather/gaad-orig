@@ -16,11 +16,11 @@ import { Payment } from './../core/payment.model';
 })
 export class CheckoutComponent implements OnInit {
 
+  public address: Address;
   public contact: Contact;
-  public shipping: Address;
-  public billing: Address;
   public payment: Payment;
 
+  //
   public addressControl: FormControl;
 
   @ViewChild("shipAddrLine1")
@@ -35,12 +35,11 @@ export class CheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    //
+    this.address = new Address({});
     //
     this.contact = new Contact({});
-    //
-    this.shipping = new Address({});
-    //
-    this.billing = new Address({});
     //
     this.payment = new Payment({});
 
@@ -50,14 +49,12 @@ export class CheckoutComponent implements OnInit {
 
   loadAddressInfo(code: string, searchElementRef: ElementRef, firstName?: string, lastName?: string): void {
 
-    let objAddress: Address = new Address({});
-
     if (firstName) {
-      objAddress.firstName = firstName;
+      this.address.firstName = firstName;
     }
 
     if (lastName) {
-      objAddress.lastName = lastName;
+      this.address.lastName = lastName;
     }
 
     //load Places Autocomplete
@@ -82,23 +79,23 @@ export class CheckoutComponent implements OnInit {
             let addressType = address.types[0];
             switch (addressType) {
               case 'street_number': {
-                objAddress.addrLine1 = address.long_name;
+                this.address.addrLine1 = address.long_name;
                 break;
               }
               case 'route': {
-                objAddress.addrLine1 += ' ' + address.long_name;
+                this.address.addrLine1 += ' ' + address.long_name;
                 break;
               }
               case 'locality': {
-                objAddress.addrLine2 = address.long_name;
+                this.address.addrLine2 = address.long_name;
                 break;
               }
               case 'postal_town': {
-                objAddress.city = address.long_name;
+                this.address.city = address.long_name;
                 break;
               }
               case 'postal_code': {
-                objAddress.postcode = address.long_name;
+                this.address.postcode = address.long_name;
                 break;
               }
             }
@@ -106,21 +103,35 @@ export class CheckoutComponent implements OnInit {
 
           if (code == 'SHIP') {
             //
-            this.shipping._id = objAddress._id;
-            this.shipping.firstName = objAddress.firstName;
-            this.shipping.lastName = objAddress.lastName;
-            this.shipping.addrLine1 = objAddress.addrLine1;
-            this.shipping.addrLine2 = objAddress.addrLine2;
-            this.shipping.city = objAddress.city;
-            this.shipping.postcode = objAddress.postcode;
-            this.shipping.save = objAddress.save;
+            this.global.shipping = new Address({});
+            //
+            this.global.shipping._id = this.address._id;
+            this.global.shipping.firstName = this.address.firstName;
+            this.global.shipping.lastName = this.address.lastName;
+            this.global.shipping.addrLine1 = this.address.addrLine1;
+            this.global.shipping.addrLine2 = this.address.addrLine2;
+            this.global.shipping.city = this.address.city;
+            this.global.shipping.postcode = this.address.postcode;
+            this.global.shipping.save = this.address.save;
+
+            console.log('global shipping: ' + JSON.stringify(this.global.shipping));
           }
 
           if (code == 'BILL') {
             //
-            this.billing = objAddress;
-          }
+            this.global.billing = new Address({});
+            //
+            this.global.billing._id = this.address._id;
+            this.global.billing.firstName = this.address.firstName;
+            this.global.billing.lastName = this.address.lastName;
+            this.global.billing.addrLine1 = this.address.addrLine1;
+            this.global.billing.addrLine2 = this.address.addrLine2;
+            this.global.billing.city = this.address.city;
+            this.global.billing.postcode = this.address.postcode;
+            this.global.billing.save = this.address.save;
 
+            console.log('global billing: ' + JSON.stringify(this.global.billing));
+          }
         });
       });
     });
@@ -128,32 +139,9 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     //
-    if (this.shipping) {
-      //
-      this.global.shipping = new Address({})
-      //
-      this.global.shipping._id = this.shipping._id;
-      this.global.shipping.firstName = this.shipping.firstName;
-      this.global.shipping.lastName = this.shipping.lastName;
-      this.global.shipping.addrLine1 = this.shipping.addrLine1;
-      this.global.shipping.addrLine2 = this.shipping.addrLine2;
-      this.global.shipping.city = this.shipping.city;
-      this.global.shipping.postcode = this.shipping.postcode;
-      this.global.shipping.save = this.shipping.save;
-    }
-    //
-    if (this.billing) {
-      //
-      this.global.billing = new Address({})
-      //
-      this.global.billing._id = this.billing._id;
-      this.global.billing.addrLine1 = this.billing.addrLine1;
-      this.global.billing.addrLine2 = this.billing.addrLine2;
-      this.global.billing.city = this.billing.city;
-      this.global.billing.postcode = this.billing.postcode;
-      this.global.billing.save = this.billing.save;
-    }
-
+    console.log('checkout');
+    console.log('global shipping: ' + JSON.stringify(this.global.shipping));
+    console.log('global billing: ' + JSON.stringify(this.global.billing));
     //
     form.reset();
   }
@@ -219,5 +207,4 @@ export class CheckoutComponent implements OnInit {
       }
     }
   }
-
 }

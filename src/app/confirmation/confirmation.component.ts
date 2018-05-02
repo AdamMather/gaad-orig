@@ -14,6 +14,8 @@ export class ConfirmationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('confirmation');
+    console.log('global shipping: ' + JSON.stringify(this.global.shipping));
     console.log('global billing: ' + JSON.stringify(this.global.billing));
   }
 

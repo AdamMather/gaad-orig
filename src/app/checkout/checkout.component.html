@@ -57,13 +57,13 @@
                     <div class="col-sm-6">
                       <label for="firstName">First Name *</label>
                       <input type="text" class="form-control" id="firstName" name="firstName" minlength="3" maxlength="30" placeholder="Please enter the first name"
-                        aria-required="true" [(ngModel)]="shipping.firstName" #firstName="ngModel" required>
+                        aria-required="true" [(ngModel)]="address.firstName" #firstName="ngModel" required>
                     </div>
                     <!-- // col-sm-6 -->
                     <div class="col-sm-6">
                       <label for="lastName">Last Name *</label>
                       <input type="text" class="form-control" id="lastName" name="lastName" minlength="3" maxlength="30" placeholder="Please enter the last name"
-                        aria-required="true" [(ngModel)]="shipping.lastName" #lastName="ngModel" required>
+                        aria-required="true" [(ngModel)]="address.lastName" #lastName="ngModel" required>
                     </div>
                     <!-- // col-sm-6 -->
                   </div>
@@ -72,25 +72,25 @@
                   <label for="ship_addrLine1">Address Line 1 *</label>
                   <input type="text" class="form-control" id="ship_addrLine1" name="ship_addrLine1" placeholder="Please enter the first line of the contact main address"
                     (focus)="loadAddressInfo('SHIP', shipAddressElementRef, firstName.value, lastName.value)" autocorrect="off"
-                    autocapitalize="off" spellcheck="off" aria-required="true" [(ngModel)]="shipping.addrLine1" #shipAddrLine1
+                    autocapitalize="off" spellcheck="off" aria-required="true" [(ngModel)]="address.addrLine1" #shipAddrLine1
                     [formControl]="addressControl" required>
 
                   <label for="ship_addrLine2">Address Line 2 *</label>
                   <input type="text" class="form-control" id="ship_addrLine2" name="ship_addrLine2" placeholder="Please enter the second line of the contact main address"
-                    [(ngModel)]="shipping.addrLine2" #shipAddrLine2="ngModel">
+                    [(ngModel)]="address.addrLine2" #shipAddrLine2="ngModel">
 
                   <div class="row">
                     <div class="col-sm-6">
                       <label for="ship_city">Town / City *</label>
                       <input type="text" class="form-control" id="ship_city" name="ship_city" placeholder="Please enter the town or city of the contact main address"
-                        aria-required="true" [(ngModel)]="shipping.city" #shipCity="ngModel" required>
+                        aria-required="true" [(ngModel)]="address.city" #shipCity="ngModel" required>
                     </div>
                     <!-- // col-sm-6 -->
                     <div class="col-sm-6">
                       <label for="ship_postcode">Post Code *</label>
                       <input type="text" class="form-control" id="ship_postcode" name="ship_postcode" maxlength="8" placeholder="Please enter the postcode of the contact main address"
                         pattern="^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$"
-                        aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="shipping.postcode" #shipPostcode="ngModel"
+                        aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="address.postcode" #shipPostcode="ngModel"
                         required>
                       <span id="postcode_desc" class="hidden" aria-live="assertive">example format required: xxx xxx, xxxx xxx</span>
                     </div>
@@ -98,7 +98,8 @@
                   </div>
                   <!-- // row -->
 
-                  <input type="checkbox" id="ship_saveAddressInfo" name="ship_saveAddressInfo" value="" [(ngModel)]="shipping.save" #shipSaveAddressInfo="ngModel">
+                  <input type="checkbox" id="ship_saveAddressInfo" name="ship_saveAddressInfo" value="" [(ngModel)]="address.save"
+                    #shipSaveAddressInfo="ngModel">
                   <label for="shipSaveAddressInfo">Save this information for next time</label>
 
                 </fieldset>
@@ -195,19 +196,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- // card payment -->
-                  <a href="https://www.paypal.com/signin?returnUri=https%3A%2F%2Fwww.paypal.com%2Fmyaccount&state=%2F">
-                    <img id="paypal" src="https://icount.co.uk/wp-content/uploads/paypal-784404_1280.png" alt="PayPal" width="20%" height="20%">
-                  </a>
-
-                  <div class="custom-controls-stacked d-block my-3">
-                    <label class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input">
-                      <span class="custom-control-indicator"></span>
-                      <span class="custom-control-description">Custom checkbox</span>
-                    </label>
-                  </div>
-
                 </fieldset>
 
                 <div *ngIf="!shipmentForm.form.pristine && !shipmentForm.form.valid">
@@ -251,6 +239,13 @@
                   </div>
                 </div>
 
+                <fieldset class="form-group">
+                  <!-- // card payment -->
+                  <a href="https://www.paypal.com/signin?returnUri=https%3A%2F%2Fwww.paypal.com%2Fmyaccount&state=%2F">
+                    <img id="paypal" src="https://icount.co.uk/wp-content/uploads/paypal-784404_1280.png" alt="PayPal" width="20%" height="20%">
+                  </a>
+                </fieldset>
+
               </form>
             </div>
           </div>
@@ -265,30 +260,31 @@
                   <label for="bill_addrLine1">Address Line 1 *</label>
                   <input type="text" class="form-control" id="bill_addrLine1" name="bill_addrLine1" placeholder="Please enter the first line of the contact main address"
                     (focus)="loadAddressInfo('BILL', billAddressElementRef)" autocorrect="off" autocapitalize="off" spellcheck="off"
-                    aria-required="true" [(ngModel)]="billing.addrLine1" #billAddrLine1 [formControl]="addressControl" required>
+                    aria-required="true" [(ngModel)]="address.addrLine1" #billAddrLine1 [formControl]="addressControl"
+                    required>
 
                   <label for="bill_addrLine2">Address Line 2 *</label>
                   <input type="text" class="form-control" id="bill_addrLine2" name="bill_addrLine2" placeholder="Please enter the second line of the contact main address"
-                    [(ngModel)]="billing.addrLine2" #billAddrLine2="ngModel">
+                    [(ngModel)]="address.addrLine2" #billAddrLine2="ngModel">
 
                   <div class="row">
                     <div class="col-sm-6">
 
                       <label for="bill_city">Town / City *</label>
                       <input type="text" class="form-control" id="bill_city" name="bill_city" placeholder="Please enter the town or city of the contact main address"
-                        aria-required="true" [(ngModel)]="billing.city" #billCity="ngModel" required>
+                        aria-required="true" [(ngModel)]="address.city" #billCity="ngModel" required>
                     </div>
                     <div class="col-sm-6">
                       <label for="bill_postcode">Post Code *</label>
                       <input type="text" class="form-control" id="bill_postcode" name="bill_postcode" maxlength="8" placeholder="Please enter the postcode of the contact main address"
                         pattern="^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$"
-                        aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="billing.postcode" #billPostcode="ngModel"
+                        aria-describedby="postcode_desc" aria-required="true" [(ngModel)]="address.postcode" #billPostcode="ngModel"
                         required>
                       <span id="postcode_desc" class="hidden" aria-live="assertive">example format required: xxx xxx, xxxx xxx</span>
                     </div>
                   </div>
 
-                  <input type="checkbox" id="bill_saveAddressInfo" name="bill_saveAddressInfo" value="" [(ngModel)]="billing.save" #billSaveAddressInfo="ngModel">
+                  <input type="checkbox" id="bill_saveAddressInfo" name="bill_saveAddressInfo" value="" [(ngModel)]="address.save" #billSaveAddressInfo="ngModel">
                   <label for="billSaveAddressInfo">Save this information for next time</label>
 
 

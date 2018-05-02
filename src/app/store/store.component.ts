@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { Global } from './../core/global.model';
@@ -138,6 +138,26 @@ export class StoreComponent implements OnInit {
       this.global.basket.push(productItem);
       // update basket cost by item quantity cost
       this.global.basketCost = Number(this.global.basketCost + productItem.quantityCost);
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKey(event: any, item?: ProductItem): void {
+
+    console.log(event.keyCode);
+    let element = document.getElementById('status');
+    let attId = event.srcElement.getAttribute('id');
+
+    // key code for Enter / CR
+    if (event.keyCode == 73 && event.altKey) {
+      console.log('you pressed key combination Alt+I');
+      element.innerHTML = this.global.getBasketContents();
+      element.focus();
+    }
+
+    if (event.keyCode == 66 && event.altKey) {
+      console.log('you pressed key combination Alt+B');
+      this.router.navigate(['/basket'], { relativeTo: this.route });
     }
   }
 }

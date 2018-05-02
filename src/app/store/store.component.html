@@ -1,4 +1,5 @@
 <div class="container">
+    <span id="status" tabindex="0" class="sr-only sr-only-focusable"></span>
   <!-- Content here -->
   <div class="bg-primary">
     <h1 class="display-1 small text-white">Accessibility Checkout Demo</h1>
@@ -23,7 +24,7 @@
             <div class="col-sm-6">
               <label for="Id">Waist:</label>
               <span id="waist_desc" tabindex="0" class="sr-only">please select the waist size</span>
-              <select id="Id" #Id="ngModel" class="hideLabel form-control" (change)="onChangeAttribute(waist.value)" aria-describedby="waist_desc" [(ngModel)]="waistValue"
+              <select id="Id" #Id="ngModel" class="hideLabel form-control custom-select" (change)="onChangeAttribute(waist.value)" aria-describedby="waist_desc" [(ngModel)]="waistValue"
                 [ngModelOptions]="{standalone: true}" #waist>
                 <option selected="" value=""></option>
                 <option [ngValue]="value" *ngFor="let value of waistData">
@@ -32,7 +33,7 @@
               </select>
               <label>Length:</label>
               <span id="length_desc" tabindex="0" class="sr-only">please select the length</span>
-              <select id="Id" #Id="ngModel" class="hideLabel form-control" (change)="onChangeAttribute(length.value)" aria-describedby="length_desc" [(ngModel)]="lengthValue"
+              <select id="Id" #Id="ngModel" class="hideLabel form-control custom-select" (change)="onChangeAttribute(length.value)" aria-describedby="length_desc" [(ngModel)]="lengthValue"
                 [ngModelOptions]="{standalone: true}" #length>
                 <option selected="" value=""></option>
                 <option [ngValue]="value" *ngFor="let value of lengthData">
@@ -41,7 +42,7 @@
               </select>
               <label>Colour:</label>
               <span id="colour_desc" tabindex="0" class="sr-only">please select the a colour</span>
-              <select id="Id" #Id="ngModel" class="hideLabel form-control" (change)="onChangeAttribute(colour.value)" aria-describedby="colour_desc" [(ngModel)]="colourValue"
+              <select id="Id" #Id="ngModel" class="hideLabel form-control custom-select" (change)="onChangeAttribute(colour.value)" aria-describedby="colour_desc" [(ngModel)]="colourValue"
                 [ngModelOptions]="{standalone: true}" #colour>
                 <option selected="" value=""></option>
                 <option [ngValue]="value" *ngFor="let value of colourData">
