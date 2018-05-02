@@ -8,6 +8,7 @@ import { FeatureComponent } from './../feature/feature.component';
 import { ShopComponent } from './../shop/shop.component';
 import { StoreComponent } from './../store/store.component';
 import { BasketComponent } from './../basket/basket.component';
+import { CheckoutComponent } from './../checkout/checkout.component';
 import { ContactComponent } from './../contact/contact.component';
 import { ShipmentComponent } from './../shipment/shipment.component';
 import { PaymentComponent } from './../payment/payment.component';
@@ -23,12 +24,13 @@ const routes: Routes = [
   { path: 'feature', component: FeatureComponent },
   { path: 'shop', component: ShopComponent, resolve: { products: ProductsResolve } },
   { path: 'store/:item', component: StoreComponent, resolve: { products: ProductsResolve } },
-  { path: 'form', component: WcagFormComponent, resolve: { products: ProductsResolve } },
   { path: 'basket', component: BasketComponent },
+  { path: 'checkout', component: CheckoutComponent, resolve: { products: ProductsResolve } },
   { path: 'contact', component: ContactComponent },
   { path: 'shipment', component: ShipmentComponent },
   { path: 'payment', component: PaymentComponent },
-  { path: 'confirmation', component: ConfirmationComponent, resolve: { products: ProductsResolve } }
+  { path: 'confirmation', component: ConfirmationComponent, resolve: { products: ProductsResolve } },
+  { path: 'form', component: WcagFormComponent, resolve: { products: ProductsResolve } }
 ];
 
 @NgModule({

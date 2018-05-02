@@ -25,6 +25,7 @@ import { ShopComponent } from './shop/shop.component';
 import { ProductsService } from './shared/service/products.service';
 import { ProductsResolve } from './shared/resolve/products.resolve.service';
 import { WcagFormComponent } from './wcag-form/wcag-form.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const googleMapsParams = {
   apiKey: 'AIzaSyDK8zuVo2bqA-K2PX08tcZUQgFmY5-fTHg',
@@ -40,6 +41,7 @@ const googleMapsParams = {
     ShopComponent,
     StoreComponent,
     BasketComponent,
+    CheckoutComponent,
     ContactComponent,
     ShipmentComponent,
     PaymentComponent,
